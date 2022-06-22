@@ -22,7 +22,8 @@ afterEach(() => jest.clearAllMocks());
 
 describe('5 - Desenvolva um formulário para adicionar uma despesa contendo as seguintes características:', () => {
   test('Um campo para adicionar o valor da despesa', async () => {
-    renderWithRouterAndStore(<Wallet />, '/carteira');
+	renderWithRouterAndStore(<Wallet />, '/carteira');
+
     const valueInput = await screen.findByTestId(VALUE_INPUT_TEST_ID);
 
     expect(valueInput).toBeInTheDocument();
@@ -36,6 +37,7 @@ describe('5 - Desenvolva um formulário para adicionar uma despesa contendo as s
   });
 
   test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+	
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,
@@ -52,6 +54,7 @@ describe('5 - Desenvolva um formulário para adicionar uma despesa contendo as s
 
   test('Um campo para selecionar qual método de pagamento será utilizado', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
+	
     const methodInput = await screen.findByTestId(METHOD_INPUT_TEST_ID);
     const moneyOption = screen.getByText(/Dinheiro/);
     const creditOption = screen.getByText(/Cartão de crédito/);
