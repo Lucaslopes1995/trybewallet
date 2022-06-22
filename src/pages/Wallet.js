@@ -37,7 +37,7 @@ class Wallet extends React.Component {
 
     render() {
       const { email, currencies } = this.props;
-      //   console.log(currencies);
+      console.log(currencies);
       const { valor, descricao, moeda, metodoPagamento, tag } = this.state;
       return (
         <div>
@@ -55,17 +55,19 @@ class Wallet extends React.Component {
                   id="valor"
                 />
               </label>
-
-              <select
-                name="moeda"
-                value={ moeda }
-                onChange={ (e) => this.setState({ moeda: e.target.value }) }
-              >
-                <option hidden>Moeda</option>
-                {currencies && currencies.map((el, index) => (
-                  <option key={ el + index }>{el}</option>
-                ))}
-              </select>
+              <label htmlFor="moeda">
+                Moeda
+                <select
+                  role="combobox"
+                  id="moeda"
+                  value={ moeda }
+                  onChange={ (e) => this.setState({ moeda: e.target.value }) }
+                >
+                  {currencies && currencies.map((el, index) => (
+                    <option key={ el + index }>{el}</option>
+                  ))}
+                </select>
+              </label>
 
               <select
                 value={ metodoPagamento }
