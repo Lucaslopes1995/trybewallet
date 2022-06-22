@@ -7,7 +7,6 @@ const INITIAL_STATE = {
 };
 
 const user = (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
   case SEND_USER_DATA:
     return {
