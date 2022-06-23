@@ -38,25 +38,34 @@ class Wallet extends React.Component {
 
     handleSubmit = (e) => {
       e.preventDefault();
-      const { fetchGasto, gastos, editaDespesa } = this.props;
+      const { fetchGasto, gastos } = this.props;
       const { isEdit } = this.state;
       console.log(gastos);
-      if (isEdit) {
-        const a = this.state;
-        delete a.idAtualizar;
-        delete a.isEdit;
+      if (!isEdit) {
+        const b = this.state;
+        delete b.idAtualizar;
+        delete b.isEdit;
+        fetchGasto(b);
         this.setState({ ...INITIAL_STATE, isEdit: false });
-        return editaDespesa(a, gastos);
       }
       //   const { currency } = this.state;
 
       //   console.log(dispatch);
       //   this.fetchAPI(currency, value);
-      const b = this.state;
-      delete b.idAtualizar;
-      delete b.isEdit;
-      fetchGasto(b);
-      this.setState({ ...INITIAL_STATE, isEdit: false });
+    }
+
+    handleEditButton = (e) => {
+      e.preventDefault();
+      const { gastos, editaDespesa } = this.props;
+      const { isEdit } = this.state;
+      if (isEdit) {
+        const a = this.state;
+        delete a.idAtualizar;
+        delete a.isEdit;
+        this.setState({ ...INITIAL_STATE, isEdit: false });
+        this.setState({ ...INITIAL_STATE, isEdit: false });
+        return editaDespesa(a, gastos);
+      }
     }
 
     editSpent = (despesa) => {
@@ -77,6 +86,7 @@ class Wallet extends React.Component {
               <label htmlFor="value">
                 Valor
                 <input
+                  required
                   data-testid="value-input"
                   name="value"
                   value={ value }
@@ -87,11 +97,13 @@ class Wallet extends React.Component {
               <label htmlFor="currency">
                 Moeda
                 <select
+                  required
                   role="combobox"
                   id="currency"
                   value={ currency }
                   onChange={ (e) => this.setState({ currency: e.target.value }) }
                 >
+					<option hidden>Moeda</option>
                   {currencies && currencies.map((el, index) => (
                     <option key={ el + index }>{el}</option>
                   ))}
@@ -103,7 +115,7 @@ class Wallet extends React.Component {
                 onChange={ (e) => this.setState({ method: e.target.value }) }
                 data-testid="method-input"
               >
-
+				<option hidden>Forma de Pagamento</option>
                 <option>Dinheiro</option>
                 <option>Cartão de crédito</option>
                 <option>Cartão de débito</option>
@@ -115,6 +127,7 @@ class Wallet extends React.Component {
                 onChange={ (e) => this.setState({ tag: e.target.value }) }
                 data-testid="tag-input"
               >
+				<option hidden>Tag</option>
                 <option>Alimentação</option>
                 <option>Lazer</option>
                 <option>Trabalho</option>
@@ -124,7 +137,7 @@ class Wallet extends React.Component {
               </select>
 
               <label htmlFor="description">
-
+					Descrição
                 <input
                   data-testid="description-input"
                   name="description"
@@ -142,7 +155,7 @@ class Wallet extends React.Component {
               </button>
               <button
                 type="button"
-                onClick={ this.handleSubmit }
+                onClick={ this.handleEditButton }
               >
                 Editar despesa
 

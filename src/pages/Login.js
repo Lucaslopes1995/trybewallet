@@ -31,7 +31,7 @@ class Login extends React.Component {
       const { login, history } = this.props;
       e.preventDefault();
       login({ email, senha });
-      history.push('/carteira');
+      history.push('/trybewallet/carteira');
     }
 
     render() {
