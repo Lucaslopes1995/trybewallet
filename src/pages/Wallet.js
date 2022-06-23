@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { fetchCurrencies, fetchSpent } from '../actions';
+import Table from '../components/Table';
 
 const INITIAL_STATE = {
   value: '',
@@ -44,7 +45,7 @@ class Wallet extends React.Component {
     }
 
     render() {
-      const { email, currencies } = this.props;
+      const { currencies } = this.props;
       //   console.log(currencies);
       const { value, descricao: description,
         currency, method, tag } = this.state;
@@ -122,7 +123,7 @@ class Wallet extends React.Component {
               </button>
             </form>
           </div>
-          <p>{email}</p>
+          <Table />
         </div>
       );
     }
@@ -139,7 +140,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
   getcurrencies: PropTypes.func.isRequired,
   fetchGasto: PropTypes.func.isRequired,
   currencies: PropTypes.node.isRequired,
