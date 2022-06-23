@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { enviaEditElDespesa, fetchCurrencies, fetchSpent } from '../actions';
 import Table from '../components/Table';
+import './Wallet.css'
 
 const INITIAL_STATE = {
   value: '',
@@ -14,6 +15,7 @@ const INITIAL_STATE = {
   exchangeRates: {},
   isEdit: false,
   idAtualizar: 100,
+  setButtonAdd:true
 };
 
 class Wallet extends React.Component {
@@ -27,20 +29,23 @@ class Wallet extends React.Component {
       const { getcurrencies } = this.props;
       const { value } = this.state;
       //   console.log(value);
-      const currencie = await getcurrencies(currency, value);
-      return currencie;
+      await getcurrencies(currency, value);
+
     }
 
     handleChange = ({ target }) => {
       const { name, value } = target;
-      this.setState({ [name]: value });
+	//   console.log(value)
+	  this.setState((state)=>({...state,[name]:value}),this.showAddSpend)
+    //   this.setState({ [name]: value },this.showAddSpend());
+	  
     }
 
     handleSubmit = (e) => {
       e.preventDefault();
       const { fetchGasto, gastos } = this.props;
       const { isEdit } = this.state;
-      console.log(gastos);
+    //   console.log(gastos);
       if (!isEdit) {
         const b = this.state;
         delete b.idAtualizar;
@@ -48,10 +53,6 @@ class Wallet extends React.Component {
         fetchGasto(b);
         this.setState({ ...INITIAL_STATE, isEdit: false });
       }
-      //   const { currency } = this.state;
-
-      //   console.log(dispatch);
-      //   this.fetchAPI(currency, value);
     }
 
     handleEditButton = (e) => {
@@ -69,23 +70,40 @@ class Wallet extends React.Component {
     }
 
     editSpent = (despesa) => {
-      this.setState({ ...despesa, isEdit: true, idAtualizar: despesa.id });
+      this.setState({ ...despesa, isEdit: true, idAtualizar: despesa.id, setButtonAdd:true });
     }
+
+	deleteSpent = () => {
+		this.setState({...INITIAL_STATE, isEdit: false, setButtonAdd:true });
+	}
+
+	showAddSpend = () => {
+		const {value,description,currency,method,tag, isEdit} = this.state;
+		// console.log(this.state)
+		if(!value || !description || !currency || !method || !tag || isEdit){
+			// console.log(isEdit)
+			return this.setState({setButtonAdd:true})
+		}
+		return this.setState({setButtonAdd:false})
+
+	}
 
     render() {
       const { currencies } = this.props;
       //   console.log(currencies);
       const { value, description,
-        currency, method, tag } = this.state;
+        currency, method, tag, setButtonAdd, isEdit} = this.state;
+		// console.log(setButtonAdd)
       return (
-        <div>
+        <div className='container-wallet'>
 
-          <Header />
-          <div>
+          <Header currencies={currencies}/>
+          <div className='wallet-data'>
             <form onSubmit={ this.handleSubmit }>
               <label htmlFor="value">
                 Valor
                 <input
+				type="number"
                   required
                   data-testid="value-input"
                   name="value"
@@ -97,11 +115,12 @@ class Wallet extends React.Component {
               <label htmlFor="currency">
                 Moeda
                 <select
+				  name = "currency"
                   required
                   role="combobox"
                   id="currency"
                   value={ currency }
-                  onChange={ (e) => this.setState({ currency: e.target.value }) }
+                  onChange={ this.handleChange }
                 >
 					<option hidden>Moeda</option>
                   {currencies && currencies.map((el, index) => (
@@ -109,11 +128,15 @@ class Wallet extends React.Component {
                   ))}
                 </select>
               </label>
-
+			  <label htmlFor="method">
+                Pagamento
               <select
+			  	id="method"
                 value={ method }
-                onChange={ (e) => this.setState({ method: e.target.value }) }
+				name = "method"
+                onChange={ this.handleChange }
                 data-testid="method-input"
+				required
               >
 				<option hidden>Forma de Pagamento</option>
                 <option>Dinheiro</option>
@@ -121,11 +144,16 @@ class Wallet extends React.Component {
                 <option>Cartão de débito</option>
 
               </select>
-
+			  </label>
+			  <label htmlFor="tag">
+                Tag
               <select
+			  	id="tag"
                 value={ tag }
-                onChange={ (e) => this.setState({ tag: e.target.value }) }
+				name = "tag"
+                onChange={ this.handleChange }
                 data-testid="tag-input"
+				required
               >
 				<option hidden>Tag</option>
                 <option>Alimentação</option>
@@ -135,10 +163,12 @@ class Wallet extends React.Component {
                 <option>Saúde</option>
 
               </select>
+			  </label>
 
               <label htmlFor="description">
 					Descrição
                 <input
+				required
                   data-testid="description-input"
                   name="description"
                   value={ description }
@@ -149,6 +179,7 @@ class Wallet extends React.Component {
 
               <button
                 type="submit"
+				disabled={setButtonAdd}
               >
                 Adicionar despesa
 
@@ -156,13 +187,14 @@ class Wallet extends React.Component {
               <button
                 type="button"
                 onClick={ this.handleEditButton }
+				disabled={!isEdit}
               >
                 Editar despesa
 
               </button>
             </form>
+          <Table editSpent={ this.editSpent } deleteSpent= {this.deleteSpent}/>
           </div>
-          <Table editSpent={ this.editSpent } />
         </div>
       );
     }

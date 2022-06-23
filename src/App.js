@@ -15,9 +15,9 @@ class App extends React.Component {
 
    render() {
      return (
-       <div>
+       <>
          {this.renderRoutes()}
-       </div>
+       </>
      );
    }
 }

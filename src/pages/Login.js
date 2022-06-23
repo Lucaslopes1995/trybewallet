@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sendLogin } from '../actions';
+import './Login.css'
 
 const QTD_CHARACTERES = 6;
 
@@ -38,7 +39,7 @@ class Login extends React.Component {
       const { email, senha } = this.state;
       const validButton = this.validButton();
       return (
-        <div>
+        <div className='container-home'>
           <form onSubmit={ this.handleSumit }>
 
             <label htmlFor="email-home">

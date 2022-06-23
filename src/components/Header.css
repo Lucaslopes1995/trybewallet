@@ -1,0 +1,24 @@
+header{
+	height: 30%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	color: black;
+}
+
+.login-email{
+	width: 150px;
+}
+
+.content-header{
+	width: 50%;
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.div-logo img{
+	height: 20px;
+	width: 100px;
+}

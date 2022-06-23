@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { FETCH_CURRENCIES_SUCCESS, FETCH_CURRENCIES_FAIL, ADDSPENT,
-  DELETEELDESPESA, LIBERAEDITDESPESA, ENVIAEDITDESPESA } from '../actions';
+  DELETEELDESPESA, LIBERAEDITDESPESA, ENVIAEDITDESPESA, MUDAMOEDA } from '../actions';
 
 const INITIAL_STATE = {
   currencies: '',
@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   ask: 0,
   valor: 0,
   expenses: [],
+  moeda:'BRL'
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -52,6 +53,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [...action.payload.a, action.payload.despesa]
         .sort((a, b) => a.id - b.id),
     };
+	case MUDAMOEDA:
+		return {
+			...state,
+			moeda:action.payload
+		}
   default:
     return state;
   }

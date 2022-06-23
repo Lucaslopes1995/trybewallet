@@ -1,0 +1,24 @@
+.container-wallet{
+	height: 100vh;
+	position: fixed;
+	width: 100%;
+}
+
+.wallet-data {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.wallet-data form{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: rgb(9, 25, 47);
+	height: 60px;
+}
+
+form input, form select{
+	margin: 0 5px 0 5px;
+	border-radius: 5px;
+}

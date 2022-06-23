@@ -1,0 +1,22 @@
+table{
+	border-collapse: collapse;
+	color: black;
+}
+
+table thead tr{
+	color: white;
+	background-color: rgb(13, 46, 93);
+	height: 30px;
+}
+tbody tr{
+	height: 30px;
+	margin: 5px;
+}
+
+table td{
+	text-align: center;
+}
+
+table th{
+
+}

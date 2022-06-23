@@ -2,68 +2,98 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteElDespesa, liberaEditElDespesa } from '../actions';
+import './Table.css'
 
 class Table extends React.Component {
   render() {
-    const { despesas, deleteDespesa, editSpent } = this.props;
+    const { despesas, deleteDespesa, editSpent, deleteSpent, moeda} = this.props;
     // const { exchangeRates } = despesas[0];
     console.log(despesas);
     return (
       <table>
-        <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
-        </tr>
-        {despesas?.map((el, index) => (
-          <tr key={ index + el.id }>
-            <td>{el.description}</td>
-            <td>{el.tag}</td>
-            <td>{el.method}</td>
-            <td>{parseFloat(el.value).toFixed(2)}</td>
-            <td>{ el.exchangeRates[el.currency].name}</td>
-            <td>{parseFloat(el.exchangeRates[el.currency].ask).toFixed(2)}</td>
-            <td>
-              {(parseFloat(el.exchangeRates[el.currency].ask)
-            * parseFloat(el.value)).toFixed(2)}
+		<thead>
+			<tr>
+			<th>Descrição</th>
+			<th>Tag</th>
+			<th>Método de pagamento</th>
+			<th>Valor</th>
+			<th>Moeda</th>
+			<th>Câmbio utilizado</th>
+			<th>Valor convertido</th>
+			<th>Moeda de conversão</th>
+			<th>Editar/Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			{despesas?.map((el, index) => (
+			<tr key={ index + el.id }>
+				<td>{el.description}</td>
+				<td>{el.tag}</td>
+				<td>{el.method}</td>
+				<td>{parseFloat(el.value).toFixed(2)}</td>
+				<td>{ el.exchangeRates[el.currency].name?.replace(/(.+)\/.+/,(td,pt1)=>pt1)}</td>
+				<td>{(moeda!=="BRL")?(parseFloat(el.exchangeRates[el.currency]?.ask)
+				/
+				(parseFloat(el.exchangeRates[moeda]?.ask))
+				
+				
+				)
+				
+				.toFixed(2)
+				:
+				parseFloat(el.exchangeRates[el.currency]?.ask).toFixed(2)
+				}</td>
 
-            </td>
-            <td>Real</td>
-            <td>
 
-              <button
-                onClick={ () => editSpent(el) }
-                data-testid="edit-btn"
-                type="button"
-              >
-                Editar
+				<td>
+				{(moeda!=="BRL")?
+				
+				((parseFloat(el.exchangeRates[el.currency]?.ask)
+				/
+				(parseFloat(el.exchangeRates[moeda]?.ask)))
+				* parseFloat(el.value)).toFixed(2)
 
-              </button>
+				:
 
-              <button
-                onClick={ () => deleteDespesa(el, despesas) }
-                data-testid="delete-btn"
-                type="button"
-              >
-                Deletar
-              </button>
+				(parseFloat(el.exchangeRates[el.currency]?.ask)
+				* parseFloat(el.value)).toFixed(2)
+				
+				
+				}
 
-            </td>
+				</td>
+				<td>{el.exchangeRates[moeda]?.name.replace(/(.+)\/.+/,(td,pt1)=>pt1) || "BRL"}</td>
+				<td>
 
-          </tr>
-        ))}
+				<button
+					onClick={ () => editSpent(el) }
+					data-testid="edit-btn"
+					type="button"
+				>
+					Editar
+
+				</button>
+
+				<button
+					onClick={ () => {deleteDespesa(el, despesas);deleteSpent()} }
+					data-testid="delete-btn"
+					type="button"
+				>
+					Deletar
+				</button>
+
+				</td>
+
+			</tr>
+			))}
+		</tbody>
       </table>
     );
   }
 }
 const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,
+  moeda: state.wallet.moeda
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -79,6 +109,7 @@ Table.propTypes = {
   despesas: PropTypes.node.isRequired,
   deleteDespesa: PropTypes.func.isRequired,
   editSpent: PropTypes.func.isRequired,
+  deleteSpent: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

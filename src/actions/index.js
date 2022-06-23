@@ -6,6 +6,7 @@ export const ADDSPENT = 'add_spent';
 export const DELETEELDESPESA = 'deleteElDespesa';
 export const LIBERAEDITDESPESA = 'LIBERAEDITDESPESA';
 export const ENVIAEDITDESPESA = 'ENVIAEDITDESPESA';
+export const MUDAMOEDA = 'MUDAMOEDA';
 
 const sucessFetch = (currencies, cotacao = 0, valor = 0) => ({
   type: FETCH_CURRENCIES_SUCCESS,
@@ -88,13 +89,23 @@ export const liberaEditElDespesa = (despesa, todasDespesas) => {
   };
 };
 
-export const enviaEditElDespesa = (despesa, todasDespesas) => {
-  const a = todasDespesas?.filter((desp) => desp.id !== despesa.id);
+export const converteMoeda = (moeda) => {
+	console.log(moeda)
   return {
-    type: ENVIAEDITDESPESA,
-    payload: { despesa, a },
+    type: MUDAMOEDA,
+    payload: moeda,
   };
 };
+
+export const enviaEditElDespesa = (despesa, todasDespesas) => {
+	const a = todasDespesas?.filter((desp) => desp.id !== despesa.id);
+	return {
+	  type: ENVIAEDITDESPESA,
+	  payload: { despesa, a },
+	};
+  };
+
+
 
 export const sendLogin = (user) => ({
   type: SEND_USER_DATA,
