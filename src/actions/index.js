@@ -3,6 +3,9 @@ export const SEND_USER_DATA = 'sendUserData';
 export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS';
 export const FETCH_CURRENCIES_FAIL = 'FETCH_CURRENCIES_FAIL';
 export const ADDSPENT = 'add_spent';
+export const DELETEELDESPESA = 'deleteElDespesa';
+export const LIBERAEDITDESPESA = 'LIBERAEDITDESPESA';
+export const ENVIAEDITDESPESA = 'ENVIAEDITDESPESA';
 
 const sucessFetch = (currencies, cotacao = 0, valor = 0) => ({
   type: FETCH_CURRENCIES_SUCCESS,
@@ -48,9 +51,9 @@ export const fetchSpent = (spent) => async (dispatch) => {
       delete re.USDT;
       //   console.log(re);
       const cotacao = re[spent.currency].ask || 0;
-      console.log(re);
-      console.log(spent.currency);
-      console.log(cotacao);
+      //   console.log(re);
+      //   console.log(spent.currency);
+      //   console.log(cotacao);
 
       const arrobj = {
         cotacao,
@@ -65,6 +68,32 @@ export const fetchSpent = (spent) => async (dispatch) => {
     dispatch(failFetch(error));
     console.log(error);
   }
+};
+
+export const deleteElDespesa = (despesa, todasDespesas) => {
+  const a = todasDespesas.filter((desp) => desp.id !== despesa.id);
+  console.log(a);
+  return {
+    type: DELETEELDESPESA,
+    payload: { despesa, a },
+  };
+};
+
+export const liberaEditElDespesa = (despesa, todasDespesas) => {
+//   const a = todasDespesas.filter((desp) => desp.id !== despesa.id);
+  const a = todasDespesas;
+  return {
+    type: LIBERAEDITDESPESA,
+    payload: { despesa, a },
+  };
+};
+
+export const enviaEditElDespesa = (despesa, todasDespesas) => {
+  const a = todasDespesas?.filter((desp) => desp.id !== despesa.id);
+  return {
+    type: ENVIAEDITDESPESA,
+    payload: { despesa, a },
+  };
 };
 
 export const sendLogin = (user) => ({

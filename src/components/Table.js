@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteElDespesa, liberaEditElDespesa } from '../actions';
 
 class Table extends React.Component {
   render() {
-    const { despesas } = this.props;
+    const { despesas, deleteDespesa, editSpent } = this.props;
     // const { exchangeRates } = despesas[0];
     console.log(despesas);
     return (
@@ -34,7 +35,26 @@ class Table extends React.Component {
 
             </td>
             <td>Real</td>
-            <td>{el.description}</td>
+            <td>
+
+              <button
+                onClick={ () => editSpent(el) }
+                data-testid="edit-btn"
+                type="button"
+              >
+                Editar
+
+              </button>
+
+              <button
+                onClick={ () => deleteDespesa(el, despesas) }
+                data-testid="delete-btn"
+                type="button"
+              >
+                Deletar
+              </button>
+
+            </td>
 
           </tr>
         ))}
@@ -46,8 +66,19 @@ const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteDespesa: (despesa, todasDespesas) => {
+    dispatch(deleteElDespesa(despesa, todasDespesas));
+  },
+  editDespesa: (despesa, todasDespesas) => {
+    dispatch(liberaEditElDespesa(despesa, todasDespesas));
+  },
+});
+
 Table.propTypes = {
   despesas: PropTypes.node.isRequired,
+  deleteDespesa: PropTypes.func.isRequired,
+  editSpent: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
