@@ -17,7 +17,6 @@ class App extends React.Component {
      return (
        <div>
          {this.renderRoutes()}
-         <p>Opass</p>
        </div>
      );
    }
