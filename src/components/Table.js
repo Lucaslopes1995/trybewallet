@@ -9,6 +9,11 @@ import editar from '../images/edit.png';
 class Table extends React.Component {
   render() {
     const { despesas, deleteDespesa, editSpent, deleteSpent, moeda} = this.props;
+	const auxMoeda = (moeda === "DOGE") ? "" : moeda
+	const auxCurrency = (moeda === "DOGE") ? "" : "currency"
+
+	const auxObjMoeda = (moeda === "DOGE") ? {} : {style: 'currency', currency: moeda}
+
     // const { exchangeRates } = despesas[0];
     console.log(despesas);
     return (
@@ -32,7 +37,7 @@ class Table extends React.Component {
 				<td>{el.description}</td>
 				<td>{el.tag}</td>
 				<td>{el.method}</td>
-				<td>{parseFloat(el.value).toFixed(2)}</td>
+				<td>{parseFloat(el.value).toLocaleString('pt-br',{maximumFractionDigits: 0 })}</td>
 				<td>{ el.exchangeRates[el.currency].name?.replace(/(.+)\/.+/,(td,pt1)=>pt1)}</td>
 				<td>{(moeda!=="BRL")?(parseFloat(el.exchangeRates[el.currency]?.ask)
 				/
@@ -41,9 +46,9 @@ class Table extends React.Component {
 				
 				)
 				
-				.toFixed(2)
+				.toLocaleString('pt-br',{maximumFractionDigits: 2, ...auxObjMoeda })
 				:
-				parseFloat(el.exchangeRates[el.currency]?.ask).toFixed(2)
+				parseFloat(el.exchangeRates[el.currency]?.ask).toLocaleString('pt-br',{maximumFractionDigits: 2, ...auxObjMoeda})
 				}</td>
 
 
@@ -53,12 +58,12 @@ class Table extends React.Component {
 				((parseFloat(el.exchangeRates[el.currency]?.ask)
 				/
 				(parseFloat(el.exchangeRates[moeda]?.ask)))
-				* parseFloat(el.value)).toFixed(2)
+				* parseFloat(el.value)).toLocaleString('pt-br',{maximumFractionDigits: 2, ...auxObjMoeda })
 
 				:
 
 				(parseFloat(el.exchangeRates[el.currency]?.ask)
-				* parseFloat(el.value)).toFixed(2)
+				* parseFloat(el.value)).toLocaleString('pt-br',{maximumFractionDigits: 2, ...auxObjMoeda })
 				
 				
 				}
