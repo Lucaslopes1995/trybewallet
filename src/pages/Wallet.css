@@ -23,18 +23,18 @@ form input, form select{
 	border-radius: 5px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
 
 
 	.wallet-data input{
 		margin-top: 3px;
 		height: 10px;
-	  	width: 30px;
+	  	width: 50px;
 	}
 
 	.wallet-data select{
 		height: 20px;
-	  	width: 30px;
+	  	width: 50px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
