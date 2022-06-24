@@ -15,7 +15,7 @@
 	justify-content: space-around;
 	align-items: center;
 	align-self: center;
-	height: 200px;
+	height: 300px;
 	border:1px solid black;
 	border-radius: 10px;
 	width: 300px;
@@ -33,7 +33,7 @@
 
 .container-home input{
 
-	width: 70%;
+	width: 80%;
 
 }
 
@@ -42,3 +42,35 @@
 	align-items: center;
 }
 
+.carteira-login img{
+	width: 100px;
+	height: 100px;
+}
+
+.text-login{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	font-size: 9px;
+	color: red;
+	width: 200px;
+	height: 50px;
+}
+
+.message-button{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	height: 80px;
+
+}
+
+.message-button button{
+	width: 50px;
+}
+
+.text-login span{
+	text-align: center;
+}

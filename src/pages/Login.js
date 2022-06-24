@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sendLogin } from '../actions';
 import './Login.css'
+import carteira from '../images/carteira.ico'
 
 const QTD_CHARACTERES = 6;
 
@@ -10,11 +11,25 @@ class Login extends React.Component {
     state = {
       email: '',
       senha: '',
+	  showMessagepass: false,
+	  showMessageEmail: false
     }
+
+	validMessages = () => {
+		
+		const { email, senha } = this.state;
+		
+		const exRegEmail = /^.+@.+\..+$/.test(email);
+
+		this.setState({showMessageEmail:!exRegEmail})
+		this.setState({showMessagepass:senha.length < QTD_CHARACTERES})
+		
+
+	}
 
     handleChange = ({ target }) => {
       const { name, value } = target;
-      this.setState({ [name]: value });
+      this.setState({ [name]: value },this.validMessages);
     }
 
     validButton = () => {
@@ -37,10 +52,15 @@ class Login extends React.Component {
 
     render() {
       const { email, senha } = this.state;
+	  const {showMessagepass, showMessageEmail} = this.state;
       const validButton = this.validButton();
       return (
         <div className='container-home'>
           <form onSubmit={ this.handleSumit }>
+			<div className='carteira-login'>
+				<img src={carteira} alt="carteira"/>
+			</div>
+			
 
             <label htmlFor="email-home">
               Email
@@ -68,13 +88,23 @@ class Login extends React.Component {
               />
 
             </label>
-            <button
-              type="submit"
-              disabled={ validButton }
-            >
-              Entrar
 
-            </button>
+			<div className='message-button'>
+				<div className='text-login'>
+
+					{showMessageEmail && <span>O email precisa ser no seguinte formato "exemplo123@exemplo.com"</span>}
+					{showMessagepass && <span>A senha precisa ter 6 dígitos</span>}
+					
+				</div>
+				
+				<button
+				type="submit"
+				disabled={ validButton }
+				>
+				Entrar
+
+				</button>
+			</div>
           </form>
         </div>
       );

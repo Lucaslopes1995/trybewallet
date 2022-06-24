@@ -59,4 +59,8 @@ form input, form select{
 		align-items: center;
 
 	}
+
+	form input, form select{
+		font-size: 8px;
+	}
 }

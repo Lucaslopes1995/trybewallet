@@ -45,10 +45,10 @@ class Header extends React.Component {
 		<div className='div-logo'><img src={logo} alt="logo"/></div>
 		<div className='content-header'>
 			<div className='login-email'>
-			<span data-testid="email-field">{email}</span>
+				<span data-testid="email-field">{email}</span>
 
 			</div>
-			<span>Despesa Total </span>
+			<p>Despesa Total </p>
 			<div className='valor-content'>
 				<p data-testid="total-field">{valortotal?.toFixed(2) || 0}</p>
 				<select onChange={({target})=>{mudaMoeda(target.value);this.setState({moeda:target.value})}}>
