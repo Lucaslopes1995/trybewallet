@@ -17,6 +17,71 @@ table td{
 	text-align: center;
 }
 
-table th{
+.edit-button{
+	margin-right: 5px;
+	background-color: rgb(145, 103, 4);
+	border: none;
+	border-radius: 3px;
+	padding: 4px;
+}
+
+.delete-button{
+	margin-right: 5px;
+	background-color: rgb(154, 27, 59);
+	border: none;
+	border-radius: 3px;
+	padding: 4px;
+}
+
+.edit-button img{
+	width: 15px;
+	height: 15px;
+}
+
+.delete-button img{
+	width: 15px;
+	height: 15px;
+	border: none;
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+	.div-buttons{
+		display: flex;
+	}
+
+	.edit-button{
+		margin-right: 5px;
+		background-color: rgb(145, 103, 4);
+		border: none;
+		border-radius: 3px;
+		padding: 0;
+		height: 20px !important;
+		width: 20px !important;
+	}
+	
+	.delete-button{
+		margin-right: 5px;
+		background-color: rgb(154, 27, 59);
+		border: none;
+		border-radius: 3px;
+		padding: 0;
+		height: 20px !important;
+		width: 20px !important;
+	}
+	
+	.edit-button img{
+		width: 13px;
+		height: 13px;
+		padding: 3px;
+	}
+	
+	.delete-button img{
+		width: 13px;
+		height: 13px;
+		padding: 3px;
+	}
 
 }

@@ -50,7 +50,7 @@ class Header extends React.Component {
 			</div>
 			<span>Despesa Total </span>
 			<div className='valor-content'>
-				<span data-testid="total-field">{valortotal?.toFixed(2) || 0}</span>
+				<p data-testid="total-field">{valortotal?.toFixed(2) || 0}</p>
 				<select onChange={({target})=>{mudaMoeda(target.value);this.setState({moeda:target.value})}}>
 				<option>BRL</option> 
 				{currencies && currencies?.map((el,index)=>((

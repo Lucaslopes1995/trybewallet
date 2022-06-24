@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteElDespesa, liberaEditElDespesa } from '../actions';
-import './Table.css'
+import './Table.css';
+import deletar from '../images/lixeira.png';
+import editar from '../images/edit.png';
 
 class Table extends React.Component {
   render() {
@@ -64,25 +66,30 @@ class Table extends React.Component {
 				</td>
 				<td>{el.exchangeRates[moeda]?.name.replace(/(.+)\/.+/,(td,pt1)=>pt1) || "BRL"}</td>
 				<td>
+				<div className='div-buttons'>
+					<button 
+						className='edit-button'
+						onClick={ () => editSpent(el) }
+						data-testid="edit-btn"
+						type="button"
+					>
+						<img src = {editar} alt="editar"/>
 
-				<button
-					onClick={ () => editSpent(el) }
-					data-testid="edit-btn"
-					type="button"
-				>
-					Editar
+					</button>
 
-				</button>
+					<button 
+						className='delete-button'
+						onClick={ () => {deleteDespesa(el, despesas);deleteSpent()} }
+						data-testid="delete-btn"
+						type="button"
+					>
+						<img src = {deletar} alt="deletar"/>
+					</button>
 
-				<button
-					onClick={ () => {deleteDespesa(el, despesas);deleteSpent()} }
-					data-testid="delete-btn"
-					type="button"
-				>
-					Deletar
-				</button>
+				</div>
 
 				</td>
+				
 
 			</tr>
 			))}

@@ -46,6 +46,7 @@ class Login extends React.Component {
               Email
               <input
                 name="email"
+				autoComplete='off'
                 value={ email }
                 onChange={ this.handleChange }
                 type="email"
@@ -58,6 +59,7 @@ class Login extends React.Component {
               senha
               <input
                 name="senha"
+				autoComplete='off'
                 value={ senha }
                 onChange={ this.handleChange }
                 type="password"

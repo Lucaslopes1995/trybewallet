@@ -103,6 +103,7 @@ class Wallet extends React.Component {
               <label htmlFor="value">
                 Valor
                 <input
+				autoComplete='off'
 				type="number"
                   required
                   data-testid="value-input"
@@ -168,7 +169,8 @@ class Wallet extends React.Component {
               <label htmlFor="description">
 					Descrição
                 <input
-				required
+				  required
+				  autoComplete='off'
                   data-testid="description-input"
                   name="description"
                   value={ description }
