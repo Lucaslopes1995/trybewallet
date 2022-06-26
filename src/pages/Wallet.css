@@ -64,3 +64,14 @@ form input, form select{
 		font-size: 8px;
 	}
 }
+
+@media screen and (max-width: 400px) {
+	.wallet-data input{
+	  	width: 35px;
+	}
+
+	.wallet-data select{
+	  	width: 35px;
+	}
+
+}

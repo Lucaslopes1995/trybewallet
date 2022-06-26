@@ -29,6 +29,11 @@
   color: #61dafb;
 }
 
+.darkmode{
+	background-color: black;
+	color: white;
+}
+
 @keyframes App-logo-spin {
 
   from {

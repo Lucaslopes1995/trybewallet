@@ -93,9 +93,10 @@ class Wallet extends React.Component {
       //   console.log(currencies);
       const { value, description,
         currency, method, tag, setButtonAdd, isEdit} = this.state;
-		// console.log(setButtonAdd)
+	  const classDiv = "container-wallet"
+	
       return (
-        <div className='container-wallet'>
+        <div className={classDiv}>
 
           <Header currencies={currencies}/>
           <div className='wallet-data'>
